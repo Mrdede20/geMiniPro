@@ -1,0 +1,6 @@
+[
+    {
+        "filename": "Game_with_Multiset.py",
+        "program": "from math import log2\\n\\n\\ndef get(scount, v, sum):\\n    if v > sum:\\n        print('NO')\\n        return\\n    if v == sum:\\n        print('YES')\\n        return\\n    z = log2(v)\\n    if z % 1 == 0:\\n        if scount[int(z)] > 0:\\n            print('YES')\\n            return\\n\\n    else:\\n        bry = [int(a) for a in bin(v)[2:]]\\n        l = len(bry)\\n        for i in range(l):\\n            f = scount[l - 1 - i]\\n            if f < bry[i]:\\n                if i == l - 1:\\n                    print('NO')\\n                    return\\n                else:\\n                    bry[i + 1] += 2 * (bry[i] - f)\\n        print('YES')\\n        return\\n\\n\\ns = []\\nsum = 0\\nscount = [0 for i in range(50)]\\nfor _ in range(int(input())):\\n    t, v = map(int, input().split())\\n    if t == 1:\\n\\n        sum += 2 ** v\\n        scount[v] += 1\\n    else:\\n        if v == 0:\\n            print('YES')\\n        else:\\n            get(scount, v, sum)\\n\\n"
+    }
+]

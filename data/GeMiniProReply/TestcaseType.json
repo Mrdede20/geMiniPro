@@ -1,0 +1,1098 @@
+[
+    {
+        "filename": "Rating_Increase.py",
+        "iteration": 1,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n2\n00123\n12345\n```\n\nExpected output:\n\n```\n-1\n12345\n```\n\nActual output:\n\n```\n0123\n12345\n```\n\nThe bug is caused by the incorrect comparison of `p` and `r` when `s[1] == 0`. In this case, `p` should be compared to `r + '0'`, but the program incorrectly compares `p` to `r`. This results in the incorrect output for the first test case.",
+        "input": [
+            "2",
+            "00123",
+            "12345"
+        ],
+        "expectedOutput": [
+            "-1",
+            "12345"
+        ],
+        "testcaseType": "IT",
+        "buggy_output": [],
+        "correct_output": []
+    },
+    {
+        "filename": "Rating_Increase.py",
+        "iteration": 2,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n2\n00123\n12345\n```\n\nExpected Output:\n\n```\n0123\n12345\n```\n\nActual Output:\n\n```\n-1\n12345\n```\n\nExplanation:\n\nThe bug in the program is in the following code:\n\n```python\nif s[1] == 0:\n    for i in range(1,n):\n        if s[i] != 0:\n            x = i\n            break\n        else:\n            p += str(s[i])\n```\n\nThis code is supposed to find the first non-zero digit in the input list `s`. However, it incorrectly assumes that the second element of the list (`s[1]`) is always the first non-zero digit. This assumption is incorrect, as seen in the test case above, where the first non-zero digit is actually the third element of the list (`s[2]`).\n\nAs a result of this bug, the program incorrectly identifies the first non-zero digit and splits the list into two parts incorrectly. This leads to the incorrect output for the test case above.",
+        "input": [
+            "2",
+            "00123",
+            "12345"
+        ],
+        "expectedOutput": [
+            "0123",
+            "12345"
+        ],
+        "testcaseType": "IT",
+        "buggy_output": [],
+        "correct_output": []
+    },
+    {
+        "filename": "Rating_Increase.py",
+        "iteration": 3,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n2\n000123\n123456\n```\n\nExpected output:\n\n```\n0 123\n123456\n```\n\nActual output:\n\n```\n-1\n123456\n```\n\nExplanation:\n\nThe bug is in the following code:\n\n```python\nif s[1] == 0:\n    for i in range(1,n):\n        if s[i] != 0:\n            x = i\n            break\n        else:\n            p += str(s[i])\n```\n\nThis code is supposed to find the first non-zero digit in the input list `s`. However, it incorrectly checks `s[1]` instead of `s[0]`. As a result, it fails to find the first non-zero digit in the input list when `s[0]` is 0.\n\nTo fix the bug, replace `s[1]` with `s[0]` in the above code:\n\n```python\nif s[0] == 0:\n    for i in range(1,n):\n        if s[i] != 0:\n            x = i\n            break\n        else:\n            p += str(s[i])\n```",
+        "input": [
+            "2",
+            "000123",
+            "123456"
+        ],
+        "expectedOutput": [
+            "0 123",
+            "123456"
+        ],
+        "testcaseType": "IT",
+        "buggy_output": [],
+        "correct_output": []
+    },
+    {
+        "filename": "Rating_Increase.py",
+        "iteration": 4,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n2\n012345\n000000\n```\n\nExpected Output:\n\n```\n0 12345\n-1\n```\n\nActual Output:\n\n```\n0 12345\n0 00000\n```\n\nThe bug is caused by the incorrect comparison of `int(p)` and `int(r)` when `s[1] == 0`. In this case, `p` and `r` should be compared as strings, not as integers.",
+        "input": [
+            "2",
+            "012345",
+            "000000"
+        ],
+        "expectedOutput": [
+            "0 12345",
+            "-1"
+        ],
+        "testcaseType": "IT",
+        "buggy_output": [],
+        "correct_output": []
+    },
+    {
+        "filename": "Rating_Increase.py",
+        "iteration": 5,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n3\n000123\n12345\n000000\n```\n\nExpected output:\n\n```\n0 123\n12345\n-1\n```\n\nActual output:\n\n```\n000 123\n12345\n-1\n```\n\nThe bug is in the following line:\n\n```python\nif s[1] == 0:\n```\n\nThis line checks if the second element of the list `s` is 0. If it is, the program incorrectly assumes that all the leading zeros in the list should be moved to the beginning of the list. However, this is not always the case. For example, in the input `000123`, the leading zeros should be moved to the end of the list, not the beginning.\n\nTo fix the bug, the program should check if the first element of the list `s` is 0. If it is, all the leading zeros in the list should be moved to the end of the list. Otherwise, the first element of the list should be moved to the end of the list.\n\nHere is the corrected code:\n\n```python\nfor i in range(int(input())):\n    s = list(map(int,list(input())))\n    n = len(s)\n    p = str(s[0])\n    r = \"\"\n    x = 0\n    if s[0] == 0:\n        for i in range(1,n):\n            if s[i] != 0:\n                x = i\n                break\n            else:\n                r += str(s[i])\n        for i in range(x,n):\n            p += str(s[i])\n\n        if int(p) < int(r):\n            print(p,r)\n        else:\n            print(-1)\n    else:\n        a = s[0]\n        b = \"\"\n        for i in range(1,n):\n            b += str(s[i])\n        print(b,a)\n```\n\nWith this fix, the program will produce the correct output for the given input.",
+        "input": [
+            "3",
+            "000123",
+            "12345",
+            "000000"
+        ],
+        "expectedOutput": [
+            "0 123",
+            "12345",
+            "-1"
+        ],
+        "testcaseType": "IT",
+        "buggy_output": [],
+        "correct_output": []
+    },
+    {
+        "filename": "Rating_Increase.py",
+        "iteration": 6,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n2\n0000012345\n12345\n```\n\nExpected Output:\n\n```\n00000 12345\n12345 -1\n```\n\nActual Output:\n\n```\n00000 12345\n12345 0\n```\n\nIn this test case, the program fails to correctly handle the case when the first digit of the input is 0 and all subsequent digits are also 0. As a result, it incorrectly prints \"0\" as the first part of the output for the second input.",
+        "input": [
+            "2",
+            "0000012345",
+            "12345"
+        ],
+        "expectedOutput": [
+            "00000 12345",
+            "12345 -1"
+        ],
+        "testcaseType": "IT",
+        "buggy_output": [],
+        "correct_output": []
+    },
+    {
+        "filename": "Rating_Increase.py",
+        "iteration": 7,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n2\n012345\n000000\n```\n\nExpected Output:\n\n```\n012345\n-1\n```\n\nActual Output:\n\n```\n012345\n000000\n```\n\nThe bug in the program is that it doesn't handle the case where all digits in the input are 0. In this case, the program incorrectly prints the input string as the output. To fix the bug, one can add a check to handle this case and print -1 accordingly.",
+        "input": [
+            "2",
+            "012345",
+            "000000"
+        ],
+        "expectedOutput": [
+            "012345",
+            "-1"
+        ],
+        "testcaseType": "IT",
+        "buggy_output": [],
+        "correct_output": []
+    },
+    {
+        "filename": "Rating_Increase.py",
+        "iteration": 8,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n2\n00123456789\n1234567890\n```\n\nExpected output:\n\n```\n0123456789 0\n1234567890 -1\n```\n\nActual output:\n\n```\n0123456789 0\n1234567890 0\n```\n\nThe bug is that the program incorrectly prints `0` as the second number in the second test case when it should print `-1`. This is because the program doesn't handle the case where all digits in the input are `0` correctly.",
+        "input": [
+            "2",
+            "00123456789",
+            "1234567890"
+        ],
+        "expectedOutput": [
+            "0123456789 0",
+            "1234567890 -1"
+        ],
+        "testcaseType": "IT",
+        "buggy_output": [],
+        "correct_output": []
+    },
+    {
+        "filename": "Rating_Increase.py",
+        "iteration": 9,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n2\n0000123\n0123\n```\n\nExpected output:\n\n```\n0 123\n0 123\n```\n\nActual output:\n\n```\n-1\n0 123\n```\n\nThe bug is caused by the fact that the program incorrectly handles the case where the first digit of the number is 0 and the second digit is not 0. In this case, the program should print the first digit as a separate number and the rest of the digits as a separate number. However, the program incorrectly prints -1 in this case.",
+        "input": [
+            "2",
+            "0000123",
+            "0123"
+        ],
+        "expectedOutput": [
+            "0 123",
+            "0 123"
+        ],
+        "testcaseType": "IT",
+        "buggy_output": [],
+        "correct_output": []
+    },
+    {
+        "filename": "Rating_Increase.py",
+        "iteration": 10,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n2\n0001234\n001234\n```\n\nExpected output:\n\n```\n0 1234\n0 1234\n```\n\nActual output:\n\n```\n0001 234\n001 234\n```\n\nThe bug is that the program incorrectly adds leading zeros to the first part of the number when the first non-zero digit is not the first digit of the number. This can be fixed by modifying the condition `if s[1] == 0:` to `if s[0] == 0:`.",
+        "input": [
+            "2",
+            "0001234",
+            "001234"
+        ],
+        "expectedOutput": [
+            "0 1234",
+            "0 1234"
+        ],
+        "testcaseType": "IT",
+        "buggy_output": [],
+        "correct_output": []
+    },
+    {
+        "filename": "Swap_and_Delete.py",
+        "iteration": 1,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n1\n0100110101\n```\n\nExpected Output:\n\n```\n3\n```\n\nActual Output:\n\n```\n2\n```\n\nExplanation:\n\nThe bug in the program is in the following line:\n\n```\nif need0 > sum0 or need1 > sum1:\n```\n\nThis condition checks if the number of 0's or 1's needed to make the array balanced is greater than the actual number of 0's or 1's in the array. However, this condition is incorrect because it does not take into account the fact that the array can be balanced by changing multiple characters.\n\nFor example, in the given test case, the array can be balanced by changing the first two characters from '0' to '1' and the last character from '1' to '0'. This would result in the array '1100110100', which is balanced. However, the program incorrectly calculates the cost as 2 because it stops at the first character where the condition `need0 > sum0 or need1 > sum1` is met.\n\nTo fix the bug, the condition should be changed to:\n\n```\nif abs(need0) > sum0 or abs(need1) > sum1:\n```\n\nThis condition correctly checks if the absolute value of the number of 0's or 1's needed to make the array balanced is greater than the actual number of 0's or 1's in the array.",
+        "input": [
+            "1",
+            "0100110101"
+        ],
+        "expectedOutput": [
+            "3"
+        ],
+        "testcaseType": "FT-ia",
+        "buggy_output": [
+            "0"
+        ],
+        "correct_output": [
+            "0"
+        ]
+    },
+    {
+        "filename": "Swap_and_Delete.py",
+        "iteration": 2,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n2\n001110101101\n010101010101\n```\n\nExpected output:\n\n```\n3\n0\n```\n\nActual output:\n\n```\n4\n1\n```\n\nExplanation:\n\nIn the first test case, the program incorrectly calculates the cost as 4 instead of 3. The bug is caused by the line `cost = n - k` which should be `cost = min(cost, n - k)` to correctly update the cost.\n\nIn the second test case, the program incorrectly calculates the cost as 1 instead of 0. This is because the loop condition `if need0 > sum0 or need1 > sum1` is incorrect. It should be `if abs(need0) > sum0 or abs(need1) > sum1` to correctly check if the number of 0's or 1's needed exceeds the actual number of 0's or 1's in the array.",
+        "input": [
+            "2",
+            "001110101101",
+            "010101010101"
+        ],
+        "expectedOutput": [
+            "3",
+            "0"
+        ],
+        "testcaseType": "FT-ia",
+        "buggy_output": [
+            "2",
+            "0"
+        ],
+        "correct_output": [
+            "2",
+            "0"
+        ]
+    },
+    {
+        "filename": "Swap_and_Delete.py",
+        "iteration": 3,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n2\n10\n1111000010\n10\n1111111111\n```\n\nExpected Output:\n\n```\n1\n0\n```\n\nActual Output:\n\n```\n2\n1\n```\n\nThis test case triggers the bug in the program. The bug is in the following line:\n\n```\ncost = n - k\n```\n\nThis line should be:\n\n```\ncost = k + 1\n```\n\nWith this fix, the program will produce the correct output for the given test case.",
+        "input": [
+            "2",
+            "10",
+            "1111000010",
+            "10",
+            "1111111111"
+        ],
+        "expectedOutput": [
+            "1",
+            "0"
+        ],
+        "testcaseType": "IT",
+        "buggy_output": [],
+        "correct_output": []
+    },
+    {
+        "filename": "Swap_and_Delete.py",
+        "iteration": 4,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n2\n1011101111\n1111111111\n```\n\nExpected Output:\n\n```\n1\n0\n```\n\nActual Output:\n\n```\n2\n2\n```\n\nExplanation:\n\nThe bug in the program is in the following line:\n\n```\ncost = n - k\n```\n\nThis line should be replaced with:\n\n```\ncost = min(cost, n - k)\n```\n\nThe original line sets the cost to the difference between the length of the array and the current index `k`. However, this can result in incorrect cost calculation if there are multiple possible indices where the cost is minimized. The corrected line ensures that the cost is set to the minimum of the current cost and the difference between the length of the array and the current index.\n\nWith the corrected line, the program will produce the correct output for the given test case:\n\n```\n1\n0\n```",
+        "input": [
+            "2",
+            "1011101111",
+            "1111111111"
+        ],
+        "expectedOutput": [
+            "1",
+            "0"
+        ],
+        "testcaseType": "FT-ia",
+        "buggy_output": [
+            "6",
+            "10"
+        ],
+        "correct_output": [
+            "6",
+            "10"
+        ]
+    },
+    {
+        "filename": "Swap_and_Delete.py",
+        "iteration": 5,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n2\n11001001\n11111111\n```\n\nExpected Output:\n\n```\n3\n0\n```\n\nActual Output:\n\n```\n4\n1\n```\n\nExplanation:\n\nIn the first test case, the program incorrectly calculates the cost as 4 instead of 3. The correct cost should be the minimum number of operations required to make the number of 0's and 1's equal. In this case, we can change the 4th and 5th characters from '0' to '1' to achieve this, resulting in a cost of 3.\n\nIn the second test case, the program incorrectly calculates the cost as 1 instead of 0. Since the number of 0's and 1's is already equal, no operations are required, resulting in a cost of 0.",
+        "input": [
+            "2",
+            "11001001",
+            "11111111"
+        ],
+        "expectedOutput": [
+            "3",
+            "0"
+        ],
+        "testcaseType": "FT-ia",
+        "buggy_output": [
+            "0",
+            "8"
+        ],
+        "correct_output": [
+            "0",
+            "8"
+        ]
+    },
+    {
+        "filename": "Swap_and_Delete.py",
+        "iteration": 6,
+        "replyStage1": "yes",
+        "replyStage2": "**Input:**\n\n```\n2\n10\n0011101011\n10\n1111111111\n```\n\n**Expected Output:**\n\n```\n3\n0\n```\n\n**Actual Output:**\n\n```\n1\n1\n```\n\nThe bug in the program is that it doesn't correctly calculate the cost of flipping the characters in the array. In the first test case, the cost should be 3, not 1. In the second test case, the cost should be 0, not 1.",
+        "input": [
+            "2",
+            "10",
+            "0011101011",
+            "10",
+            "1111111111"
+        ],
+        "expectedOutput": [
+            "3",
+            "0"
+        ],
+        "testcaseType": "IT",
+        "buggy_output": [],
+        "correct_output": []
+    },
+    {
+        "filename": "Swap_and_Delete.py",
+        "iteration": 7,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n2\n1011011010\n1111111111\n```\n\nExpected Output:\n\n```\n2\n0\n```\n\nActual Output:\n\n```\n3\n1\n```\n\nExplanation:\n\nIn the first test case, the bug is triggered because the program incorrectly calculates the cost of flipping the characters in the string. The program calculates the cost as the absolute difference between the number of 0's and 1's in the string, which is 3. However, the actual cost of flipping the characters is 2, since we can flip the first and third characters to make the string \"0101010101\".\n\nIn the second test case, the bug is triggered because the program incorrectly calculates the cost of flipping the characters in the string. The program calculates the cost as 0, since the number of 0's and 1's in the string is the same. However, the actual cost of flipping the characters is 1, since we can flip the first character to make the string \"0111111111\".",
+        "input": [
+            "2",
+            "1011011010",
+            "1111111111"
+        ],
+        "expectedOutput": [
+            "2",
+            "0"
+        ],
+        "testcaseType": "FT-ia",
+        "buggy_output": [
+            "2",
+            "10"
+        ],
+        "correct_output": [
+            "2",
+            "10"
+        ]
+    },
+    {
+        "filename": "Swap_and_Delete.py",
+        "iteration": 8,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n2\n10\n0111010010\n10\n1011101110\n```\n\nExpected Output:\n\n```\n2\n3\n```\n\nActual Output:\n\n```\n3\n4\n```\n\nExplanation:\n\nThe bug in the program is in the following line:\n\n```python\ncost = abs(sum0 - sum1)\n```\n\nThis line calculates the initial cost as the absolute difference between the number of 0s and 1s in the array. However, this is incorrect because it doesn't take into account the possibility of flipping characters to make the number of 0s and 1s equal.\n\nThe correct way to calculate the initial cost is to find the minimum number of characters that need to be flipped to make the number of 0s and 1s equal. This can be done by iterating through the array and keeping track of the cumulative difference between the number of 0s and 1s. The initial cost is then the absolute value of this cumulative difference.\n\nThe following is the corrected version of the code:\n\n```python\ntestCases = int(input())\n\nfor i in range(testCases):\n    arr = list(input())\n    n = len(arr)\n    sum1 = 0\n    sum0 = 0\n    need0 = 0\n    need1 = 0\n    ost = 0\n\n    for j in range(n):\n        if arr[j] == '1':\n            sum1 += 1\n        else:\n            sum0 += 1\n\n    cost = abs(sum0 - sum1)\n\n    for k in range(n):\n        if arr[k] == '1':\n            need0 += 1\n            need1 -= 1\n        else:\n            need0 -= 1\n            need1 += 1\n\n        if need0 > sum0 or need1 > sum1:\n            cost = min(cost, n - k)\n\n    print(cost)\n```",
+        "input": [
+            "2",
+            "10",
+            "0111010010",
+            "10",
+            "1011101110"
+        ],
+        "expectedOutput": [
+            "2",
+            "3"
+        ],
+        "testcaseType": "IT",
+        "buggy_output": [],
+        "correct_output": []
+    },
+    {
+        "filename": "Swap_and_Delete.py",
+        "iteration": 9,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n1\n1001011001011010110110110110110110110110110110110110110110110110\n```\n\nExpected Output:\n\n```\n1\n```\n\nActual Output:\n\n```\n10\n```",
+        "input": [
+            "1",
+            "1001011001011010110110110110110110110110110110110110110110110110"
+        ],
+        "expectedOutput": [
+            "1"
+        ],
+        "testcaseType": "FT-ia",
+        "buggy_output": [
+            "16"
+        ],
+        "correct_output": [
+            "16"
+        ]
+    },
+    {
+        "filename": "Swap_and_Delete.py",
+        "iteration": 10,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n1\n000111\n```\n\nExpected Output:\n\n```\n2\n```\n\nActual Output:\n\n```\n3\n```\n\nExplanation:\n\nThe bug in the program is that it doesn't correctly handle the case when the initial difference between the number of 0s and 1s is greater than the number of remaining elements in the array. In this case, it's impossible to balance the number of 0s and 1s by flipping elements, and the minimum cost should be the length of the array.",
+        "input": [
+            "1",
+            "000111"
+        ],
+        "expectedOutput": [
+            "2"
+        ],
+        "testcaseType": "FT-ia",
+        "buggy_output": [
+            "0"
+        ],
+        "correct_output": [
+            "0"
+        ]
+    },
+    {
+        "filename": "Game_with_Multiset.py",
+        "iteration": 1,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n4\n1 1\n1 2\n2 4\n2 3\n```\n\nExpected Output:\n\n```\nYES\nYES\nYES\nNO\n```\n\nActual Output:\n\n```\nYES\nYES\nYES\nYES\n```\n\nThe bug is triggered when the input `2 3` is given. The program incorrectly prints `YES` instead of `NO` because it fails to handle the case where the binary representation of `v` has a `1` in the most significant bit and a `0` in the least significant bit.\n\nTo fix the bug, the following line should be added to the `else` block of the `get()` function:\n\n```python\nif bry[0] == 0:\n    print('NO')\n    return\n```\n\nThis line checks if the least significant bit of `v` is `0`. If it is, then `v` cannot be represented as a sum of powers of two, and the program should print `NO`.",
+        "input": [
+            "4",
+            "1 1",
+            "1 2",
+            "2 4",
+            "2 3"
+        ],
+        "expectedOutput": [
+            "YES",
+            "YES",
+            "YES",
+            "NO"
+        ],
+        "testcaseType": "FT-ia",
+        "buggy_output": [
+            "YES",
+            "NO"
+        ],
+        "correct_output": [
+            "YES",
+            "NO"
+        ]
+    },
+    {
+        "filename": "Game_with_Multiset.py",
+        "iteration": 2,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n5\n1 0\n1 1\n2 1\n1 2\n2 2\n```\n\nExpected Output:\n\n```\nYES\nYES\nNO\nYES\nNO\n```\n\nActual Output:\n\n```\nYES\nYES\nYES\nYES\nYES\n```\n\nThe bug is triggered by the input `2 2`. The program incorrectly prints `YES` instead of `NO` because it fails to handle the case where the sum of the values of the coins is greater than the value of the target sum.",
+        "input": [
+            "5",
+            "1 0",
+            "1 1",
+            "2 1",
+            "1 2",
+            "2 2"
+        ],
+        "expectedOutput": [
+            "YES",
+            "YES",
+            "NO",
+            "YES",
+            "NO"
+        ],
+        "testcaseType": "FT-ia",
+        "buggy_output": [
+            "YES",
+            "YES"
+        ],
+        "correct_output": [
+            "YES",
+            "YES"
+        ]
+    },
+    {
+        "filename": "Game_with_Multiset.py",
+        "iteration": 3,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n5\n1 0\n1 1\n2 1\n1 2\n2 3\n```\n\nExpected Output:\n\n```\nYES\nYES\nNO\nYES\nYES\n```\n\nActual Output:\n\n```\nYES\nYES\nYES\nNO\nNO\n```\n\nThe bug is triggered by the input `2 3`. The program incorrectly prints `YES` instead of `NO` because it fails to handle the case where the binary representation of `v` has a `1` in the most significant bit and a `0` in the least significant bit.",
+        "input": [
+            "5",
+            "1 0",
+            "1 1",
+            "2 1",
+            "1 2",
+            "2 3"
+        ],
+        "expectedOutput": [
+            "YES",
+            "YES",
+            "NO",
+            "YES",
+            "YES"
+        ],
+        "testcaseType": "FT-ia",
+        "buggy_output": [
+            "YES",
+            "YES"
+        ],
+        "correct_output": [
+            "YES",
+            "YES"
+        ]
+    },
+    {
+        "filename": "Game_with_Multiset.py",
+        "iteration": 4,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n4\n1 0\n1 1\n1 2\n2 3\n```\n\nExpected Output:\n\n```\nYES\nYES\nYES\nNO\n```\n\nActual Output:\n\n```\nYES\nYES\nYES\nYES\n```\n\nThe bug is triggered because the program incorrectly prints \"YES\" in the last test case when it should print \"NO\". This is because the program doesn't correctly handle the case where the value `v` is greater than the sum of all values in the array `s`. In this case, the program should print \"NO\" because it's impossible to reach the value `v` using the operations allowed by the program.",
+        "input": [
+            "4",
+            "1 0",
+            "1 1",
+            "1 2",
+            "2 3"
+        ],
+        "expectedOutput": [
+            "YES",
+            "YES",
+            "YES",
+            "NO"
+        ],
+        "testcaseType": "FT-ia",
+        "buggy_output": [
+            "YES"
+        ],
+        "correct_output": [
+            "YES"
+        ]
+    },
+    {
+        "filename": "Game_with_Multiset.py",
+        "iteration": 5,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n3\n1 0\n1 1\n2 2\n```\n\nExpected Output:\n\n```\nYES\nYES\nNO\n```\n\nActual Output:\n\n```\nYES\nYES\nYES\n```\n\nThe bug is triggered because the program incorrectly prints \"YES\" for the last test case. This is because the program fails to handle the case where the binary representation of `v` has a leading `1` followed by a sequence of `0`s. In this case, the program should print \"NO\" because it is impossible to obtain `v` by adding powers of 2 from the given set of coins.",
+        "input": [
+            "3",
+            "1 0",
+            "1 1",
+            "2 2"
+        ],
+        "expectedOutput": [
+            "YES",
+            "YES",
+            "NO"
+        ],
+        "testcaseType": "FT-ia",
+        "buggy_output": [
+            "YES"
+        ],
+        "correct_output": [
+            "YES"
+        ]
+    },
+    {
+        "filename": "Game_with_Multiset.py",
+        "iteration": 6,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n3\n1 2\n2 4\n2 3\n```\n\nExpected Output:\n\n```\nYES\nNO\nYES\n```\n\nActual Output:\n\n```\nYES\nNO\nNO\n```\n\nExplanation:\n\nThe bug is in the `get()` function, specifically in the `else` block where it handles the case when `v` is not a power of 2. The issue is that it incorrectly increments `bry[i + 1]` by `2 * (bry[i] - f)` when `f < bry[i]`. This leads to an incorrect result when `v` is not a power of 2.\n\nTo fix the bug, the line `bry[i + 1] += 2 * (bry[i] - f)` should be replaced with `bry[i + 1] += bry[i] - f`.\n\nWith this fix, the program will produce the correct output for the given input:\n\n```\nYES\nYES\nYES\n```",
+        "input": [
+            "3",
+            "1 2",
+            "2 4",
+            "2 3"
+        ],
+        "expectedOutput": [
+            "YES",
+            "NO",
+            "YES"
+        ],
+        "testcaseType": "FT-ia",
+        "buggy_output": [
+            "YES",
+            "NO"
+        ],
+        "correct_output": [
+            "YES",
+            "NO"
+        ]
+    },
+    {
+        "filename": "Game_with_Multiset.py",
+        "iteration": 7,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n5\n1 0\n1 1\n1 2\n2 3\n2 2\n```\n\nExpected Output:\n\n```\nYES\nYES\nYES\nNO\nYES\n```\n\nActual Output:\n\n```\nYES\nYES\nYES\nYES\nNO\n```\n\nThe bug is triggered by the input `2 3`. The program incorrectly prints `YES` because it fails to handle the case where the binary representation of `v` has a `1` in the most significant bit position. In this case, the program should print `NO` because it is impossible to obtain `v` by adding powers of 2 from the given set of values.",
+        "input": [
+            "5",
+            "1 0",
+            "1 1",
+            "1 2",
+            "2 3",
+            "2 2"
+        ],
+        "expectedOutput": [
+            "YES",
+            "YES",
+            "YES",
+            "NO",
+            "YES"
+        ],
+        "testcaseType": "FT-ia",
+        "buggy_output": [
+            "YES",
+            "YES"
+        ],
+        "correct_output": [
+            "YES",
+            "YES"
+        ]
+    },
+    {
+        "filename": "Game_with_Multiset.py",
+        "iteration": 8,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n5\n1 2\n1 3\n1 0\n2 3\n2 1\n```\n\nExpected Output:\n\n```\nYES\nYES\nYES\nYES\nNO\n```\n\nActual Output:\n\n```\nYES\nYES\nYES\nNO\nYES\n```\n\nThe bug is triggered by the input `2 1`. The program incorrectly prints `YES` instead of `NO` because it fails to handle the case where `v` is a power of 2 and there are not enough coins of that denomination to make change.",
+        "input": [
+            "5",
+            "1 2",
+            "1 3",
+            "1 0",
+            "2 3",
+            "2 1"
+        ],
+        "expectedOutput": [
+            "YES",
+            "YES",
+            "YES",
+            "YES",
+            "NO"
+        ],
+        "testcaseType": "FT-ia",
+        "buggy_output": [
+            "NO",
+            "YES"
+        ],
+        "correct_output": [
+            "NO",
+            "YES"
+        ]
+    },
+    {
+        "filename": "Game_with_Multiset.py",
+        "iteration": 9,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n3\n1 1\n2 1\n2 2\n```\n\nExpected Output:\n\n```\nYES\nYES\nNO\n```\n\nThis test case triggers the bug in the program because the program incorrectly handles the case where the sum of the values of the coins is greater than the value of the target sum. In this case, the program should print \"NO\" instead of \"YES\".\n\nThe bug is in the following line of code:\n\n```python\nif v > sum:\n```\n\nThis line of code checks if the value of the target sum is greater than the sum of the values of the coins. However, it should check if the value of the target sum is less than or equal to the sum of the values of the coins.\n\nTo fix the bug, this line of code should be changed to:\n\n```python\nif v <= sum:\n```",
+        "input": [
+            "3",
+            "1 1",
+            "2 1",
+            "2 2"
+        ],
+        "expectedOutput": [
+            "YES",
+            "YES",
+            "NO"
+        ],
+        "testcaseType": "FT-Ia",
+        "buggy_output": [
+            null,
+            "YES"
+        ],
+        "correct_output": [
+            "NO",
+            "YES"
+        ]
+    },
+    {
+        "filename": "Game_with_Multiset.py",
+        "iteration": 10,
+        "replyStage1": "yes",
+        "replyStage2": "**Input:**\n\n```\n5\n1 0\n1 1\n1 2\n1 3\n2 1\n```\n\n**Expected Output:**\n\n```\nYES\nYES\nYES\nYES\nNO\n```\n\n**Actual Output:**\n\n```\nYES\nYES\nYES\nNO\nYES\n```\n\nThe bug is triggered by the input `2 1`. The program incorrectly prints `YES` instead of `NO` because it fails to handle the case where the sum of the powers of 2 in the set `s` is greater than the value `v`. In this case, the sum of the powers of 2 in the set `s` is `2^0 + 2^1 + 2^2 + 2^3 = 15`, which is greater than `v = 1`. Therefore, it should print `NO`, but the program incorrectly prints `YES`.",
+        "input": [
+            "5",
+            "1 0",
+            "1 1",
+            "1 2",
+            "1 3",
+            "2 1"
+        ],
+        "expectedOutput": [
+            "YES",
+            "YES",
+            "YES",
+            "YES",
+            "NO"
+        ],
+        "testcaseType": "FT-ia",
+        "buggy_output": [
+            "YES"
+        ],
+        "correct_output": [
+            "YES"
+        ]
+    },
+    {
+        "filename": "Array_Collapse.py",
+        "iteration": 1,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n1\n5\n1 2 3 4 5\n```\n\nExpected Output:\n\n```\n15\n```\n\nActual Output:\n\n```\n14\n```\n\nExplanation:\n\nThe bug in the code is that it doesn't handle the case when the input array is sorted in ascending order correctly. In this case, the code will calculate the number of increasing subsequences incorrectly.\n\nTo fix the bug, one can modify the code as follows:\n\n```python\n    if len(sta) == 0:\n        dp[i] = pre[i-1] + 1\n    elif a[sta[-1]] < a[i]:\n        dp[i] = pre[i-1] - pre[sta[-1]] + sta_sum\n    else:\n        while len(sta) > 0 and a[sta[-1]] == a[i]:\n            sta.pop()\n        dp[i] = pre[i-1] - pre[sta[-1]] + sta_sum\n```\n\nWith this modification, the code will correctly calculate the number of increasing subsequences for the given input.",
+        "input": [
+            "1",
+            "5",
+            "1 2 3 4 5"
+        ],
+        "expectedOutput": [
+            "15"
+        ],
+        "testcaseType": "FT-ia",
+        "buggy_output": [
+            "16"
+        ],
+        "correct_output": [
+            "16"
+        ]
+    },
+    {
+        "filename": "Array_Collapse.py",
+        "iteration": 2,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n1\n5\n5 4 3 2 1\n```\n\nExpected Output:\n\n```\n15\n```\n\nActual Output:\n\n```\n10\n```\n\nExplanation:\n\nThe bug in the code is that it doesn't correctly handle the case when the input array is in strictly decreasing order. In this case, the `sta` list will be filled with all indices from 0 to `n-1`, and the `sta_sum` variable will be equal to the sum of all `dp` values. However, the code incorrectly subtracts `dp[sta[-1]]` from `sta_sum` when popping elements from the `sta` list, which results in an incorrect calculation of `dp[i]`.\n\nTo fix the bug, one can simply remove the line `sta_sum -= dp[sta.pop()]` from the code.",
+        "input": [
+            "1",
+            "5",
+            "5 4 3 2 1"
+        ],
+        "expectedOutput": [
+            "15"
+        ],
+        "testcaseType": "FT-ia",
+        "buggy_output": [
+            "16"
+        ],
+        "correct_output": [
+            "16"
+        ]
+    },
+    {
+        "filename": "Array_Collapse.py",
+        "iteration": 3,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n1\n4\n1 2 3 4\n```\n\nExpected Output:\n\n```\n10\n```\n\nActual Output:\n\n```\n9\n```\n\nExplanation:\n\nThe bug in the code is in the calculation of `dp[i]`. When the stack `sta` is empty, the code correctly sets `dp[i]` to `pre[i-1] + 1`. However, when the stack is not empty, the code incorrectly calculates `dp[i]` as `pre[i-1] - pre[sta[-1]] + sta_sum`. This calculation is incorrect because it subtracts the sum of all elements in the stack from `pre[i-1]`, which is not the intended behavior.\n\nTo fix the bug, the code should calculate `dp[i]` as follows:\n\n```python\nif len(sta) == 0:\n    dp[i] = pre[i-1] + 1\nelse:\n    dp[i] = pre[i-1] - pre[sta[-1]] + dp[sta[-1]]\n```\n\nWith this fix, the code will correctly calculate the number of non-decreasing subarrays in the input array.",
+        "input": [
+            "1",
+            "4",
+            "1 2 3 4"
+        ],
+        "expectedOutput": [
+            "10"
+        ],
+        "testcaseType": "FT-ia",
+        "buggy_output": [
+            "8"
+        ],
+        "correct_output": [
+            "8"
+        ]
+    },
+    {
+        "filename": "Array_Collapse.py",
+        "iteration": 4,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n1\n4\n1 3 2 4\n```\n\nExpected output:\n\n```\n4\n```\n\nActual output:\n\n```\n5\n```\n\nThe bug is caused by the incorrect calculation of `dp[i]` when `len(sta) == 0`. In this case, `dp[i]` should be set to `pre[i-1] + 1`, but the code incorrectly sets it to `pre[i-1]`.\n\nTo fix the bug, the line `dp[i] = pre[i-1] + 1` should be added after the `if len(sta) == 0:` check.",
+        "input": [
+            "1",
+            "4",
+            "1 3 2 4"
+        ],
+        "expectedOutput": [
+            "4"
+        ],
+        "testcaseType": "FT-ia",
+        "buggy_output": [
+            "6"
+        ],
+        "correct_output": [
+            "6"
+        ]
+    },
+    {
+        "filename": "Array_Collapse.py",
+        "iteration": 5,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n2\n4\n1 2 3 4\n4\n4 3 2 1\n```\n\nExpected Output:\n\n```\n10\n6\n```\n\nActual Output:\n\n```\n13\n10\n```\n\nExplanation:\n\nThe bug in the program is in the line:\n\n```\ndp[i] = pre[i-1] + 1\n```\n\nThis line should be:\n\n```\ndp[i] = pre[i-1] - 1\n```\n\nWith this fix, the program will produce the correct output for the given test case.",
+        "input": [
+            "2",
+            "4",
+            "1 2 3 4",
+            "4",
+            "4 3 2 1"
+        ],
+        "expectedOutput": [
+            "10",
+            "6"
+        ],
+        "testcaseType": "FT-ia",
+        "buggy_output": [
+            "8",
+            "8"
+        ],
+        "correct_output": [
+            "8",
+            "8"
+        ]
+    },
+    {
+        "filename": "Array_Collapse.py",
+        "iteration": 6,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n1\n4\n2 1 3 4\n```\n\nExpected output:\n\n```\n6\n```\n\nActual output:\n\n```\n5\n```\n\nExplanation:\n\nThe bug in the program is that it doesn't handle the case when the input array is sorted in ascending order correctly. In this case, the program incorrectly calculates the answer as 5 instead of the correct answer, which is 6.\n\nTo fix the bug, the condition `while len(sta) > 0 and a[sta[-1]] > a[i]` should be replaced with `while len(sta) > 0 and a[sta[-1]] >= a[i]`. This ensures that the program correctly handles the case when the input array is sorted in ascending order.",
+        "input": [
+            "1",
+            "4",
+            "2 1 3 4"
+        ],
+        "expectedOutput": [
+            "6"
+        ],
+        "testcaseType": "FT-ia",
+        "buggy_output": [
+            "8"
+        ],
+        "correct_output": [
+            "8"
+        ]
+    },
+    {
+        "filename": "Array_Collapse.py",
+        "iteration": 7,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n1\n5\n1 2 3 4 5\n```\n\nExpected output:\n\n```\n15\n```\n\nActual output:\n\n```\n10\n```\n\nExplanation:\n\nThe bug in the program is in the line:\n\n```python\ndp[i] = pre[i-1] - pre[sta[-1]] + sta_sum\n```\n\nIt should be:\n\n```python\ndp[i] = pre[i-1] - pre[sta[-1]] + sta_sum + 1\n```\n\nThe original line incorrectly subtracts `pre[sta[-1]]` from `sta_sum` instead of adding it. This results in an incorrect calculation of `dp[i]`, which affects the final answer.\n\nWith the corrected line, the program correctly calculates the number of non-decreasing subarrays as 15, which is the expected output.",
+        "input": [
+            "1",
+            "5",
+            "1 2 3 4 5"
+        ],
+        "expectedOutput": [
+            "15"
+        ],
+        "testcaseType": "FT-ia",
+        "buggy_output": [
+            "16"
+        ],
+        "correct_output": [
+            "16"
+        ]
+    },
+    {
+        "filename": "Array_Collapse.py",
+        "iteration": 8,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n1\n5\n1 2 3 4 5\n```\n\nExpected Output:\n\n```\n15\n```\n\nActual Output:\n\n```\n14\n```\n\nExplanation:\n\nThe bug in the program is in the calculation of `dp[i]`. When `sta` is empty, the program correctly sets `dp[i]` to `pre[i-1] + 1`. However, when `sta` is not empty, the program incorrectly calculates `dp[i]` as `pre[i-1] - pre[sta[-1]] + sta_sum`. This calculation is incorrect because it subtracts the sum of `dp` values for elements in `sta` that are greater than `a[i]`. However, these elements should not be subtracted because they do not contribute to the number of increasing subsequences ending at `a[i]`.\n\nTo fix the bug, the calculation of `dp[i]` should be changed to `pre[i-1] + sta_sum`. This correctly adds the sum of `dp` values for elements in `sta` that are less than or equal to `a[i]`.\n\nWith this fix, the program will produce the correct output for the given input:\n\n```\n15\n```",
+        "input": [
+            "1",
+            "5",
+            "1 2 3 4 5"
+        ],
+        "expectedOutput": [
+            "15"
+        ],
+        "testcaseType": "FT-ia",
+        "buggy_output": [
+            "16"
+        ],
+        "correct_output": [
+            "16"
+        ]
+    },
+    {
+        "filename": "Array_Collapse.py",
+        "iteration": 9,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n1\n5\n1 2 3 4 5\n```\n\nExpected Output:\n\n```\n15\n```\n\nActual Output:\n\n```\n10\n```\n\nThis test case triggers the bug in the program. The bug is in the line:\n\n```python\ndp[i] = pre[i-1] - pre[sta[-1]] + sta_sum\n```\n\nIt should be:\n\n```python\ndp[i] = pre[i-1] - pre[sta[-1]] + sta_sum - dp[sta[-1]]\n```\n\nThe corrected program will produce the correct output for the given input.",
+        "input": [
+            "1",
+            "5",
+            "1 2 3 4 5"
+        ],
+        "expectedOutput": [
+            "15"
+        ],
+        "testcaseType": "FT-ia",
+        "buggy_output": [
+            "16"
+        ],
+        "correct_output": [
+            "16"
+        ]
+    },
+    {
+        "filename": "Array_Collapse.py",
+        "iteration": 10,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n1\n5\n1 2 3 4 5\n```\n\nExpected Output:\n\n```\n15\n```\n\nActual Output:\n\n```\n10\n```\n\nThis test case triggers the bug in the program. The bug is in the line:\n\n```\ndp[i] = pre[i-1] - pre[sta[-1]] + sta_sum\n```\n\nIt should be:\n\n```\ndp[i] = pre[i-1] - pre[sta[-1]] + sta_sum - dp[sta[-1]]\n```\n\nWith this fix, the program will correctly calculate the answer for the given input.",
+        "input": [
+            "1",
+            "5",
+            "1 2 3 4 5"
+        ],
+        "expectedOutput": [
+            "15"
+        ],
+        "testcaseType": "FT-ia",
+        "buggy_output": [
+            "16"
+        ],
+        "correct_output": [
+            "16"
+        ]
+    },
+    {
+        "filename": "Matrix_Problem.py",
+        "iteration": 1,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n2 2\n0 1\n1 0\n1 1\n1 1\n1 1\n1 1\n```\n\nExpected output:\n\n```\n-1\n```\n\nThe bug in the program is that it doesn't handle the case when the minimum cost flow is negative. In the given test case, the minimum cost flow is -1, which causes the program to return -1. To fix the bug, one needs to check if the minimum cost flow is negative and return -1 in that case.",
+        "input": [
+            "2 2",
+            "0 1",
+            "1 0",
+            "1 1",
+            "1 1",
+            "1 1",
+            "1 1"
+        ],
+        "expectedOutput": [
+            "-1"
+        ],
+        "testcaseType": "IT",
+        "buggy_output": [],
+        "correct_output": []
+    },
+    {
+        "filename": "Matrix_Problem.py",
+        "iteration": 2,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n2 2\n0 1\n1 0\n1 2\n2 1\n1 1 1 1\n```\n\nExpected output:\n\n```\n2\n```\n\nActual output:\n\n```\n-1\n```",
+        "input": [
+            "2 2",
+            "0 1",
+            "1 0",
+            "1 2",
+            "2 1",
+            "1 1 1 1"
+        ],
+        "expectedOutput": [
+            "2"
+        ],
+        "testcaseType": "IT",
+        "buggy_output": [],
+        "correct_output": []
+    },
+    {
+        "filename": "Matrix_Problem.py",
+        "iteration": 3,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n3 3\n0 0 0\n1 0 1\n0 1 0\n1 2 3\n4 5 6\n7 8 9\n```\n\nExpected output:\n\n```\n-1\n```\n\nThe bug in the program is that it doesn't correctly handle the case when the minimum cost flow is not possible. In this test case, there is no way to send 10 units of flow from the source to the sink without incurring a cost, so the program should output -1. However, the program incorrectly outputs 0.",
+        "input": [
+            "3 3",
+            "0 0 0",
+            "1 0 1",
+            "0 1 0",
+            "1 2 3",
+            "4 5 6",
+            "7 8 9"
+        ],
+        "expectedOutput": [
+            "-1"
+        ],
+        "testcaseType": "IT",
+        "buggy_output": [],
+        "correct_output": []
+    },
+    {
+        "filename": "Matrix_Problem.py",
+        "iteration": 4,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n2 2\n0 1\n1 0\n1 1\n1 1\n1 1 1 1\n```\n\nExpected output:\n\n```\n-1\n```\n\nThe bug in the program is that it doesn't correctly handle the case when the minimum cost flow is not feasible. In the given test case, there is no way to send 2 units of flow from the source to the sink without incurring a cost, so the minimum cost flow is not feasible. However, the program doesn't handle this case correctly and instead returns an incorrect result.",
+        "input": [
+            "2 2",
+            "0 1",
+            "1 0",
+            "1 1",
+            "1 1",
+            "1 1 1 1"
+        ],
+        "expectedOutput": [
+            "-1"
+        ],
+        "testcaseType": "IT",
+        "buggy_output": [],
+        "correct_output": []
+    },
+    {
+        "filename": "Matrix_Problem.py",
+        "iteration": 5,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n3 3\n0 1 0\n1 0 1\n0 1 0\n1 2 3\n4 5 6\n1 2 3\n```\n\nExpected output:\n\n```\n-1\n```\n\nExplanation:\n\nThe bug in the program is that it doesn't correctly handle the case where the maximum flow is not equal to the sum of the demands. In this test case, the maximum flow is 6, while the sum of the demands is 12. As a result, the program incorrectly prints -1 instead of the correct answer, which is 3.",
+        "input": [
+            "3 3",
+            "0 1 0",
+            "1 0 1",
+            "0 1 0",
+            "1 2 3",
+            "4 5 6",
+            "1 2 3"
+        ],
+        "expectedOutput": [
+            "-1"
+        ],
+        "testcaseType": "IT",
+        "buggy_output": [],
+        "correct_output": []
+    },
+    {
+        "filename": "Matrix_Problem.py",
+        "iteration": 6,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n2 2\n0 1\n1 0\n1 1 1\n1 1\n```\n\nExpected output:\n\n```\n-1\n```\n\nExplanation:\n\nThe bug in the program is that it doesn't correctly handle the case where there is a negative cycle in the graph. In this test case, there is a negative cycle between nodes 0 and 1, which causes the `min_cost_flow` function to return -1. To fix the bug, one needs to add a check for negative cycles before running the `min_cost_flow` function.",
+        "input": [
+            "2 2",
+            "0 1",
+            "1 0",
+            "1 1 1",
+            "1 1"
+        ],
+        "expectedOutput": [
+            "-1"
+        ],
+        "testcaseType": "IT",
+        "buggy_output": [],
+        "correct_output": []
+    },
+    {
+        "filename": "Matrix_Problem.py",
+        "iteration": 7,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n3 3\n0 0 1\n0 1 0\n1 0 0\n1 2 1\n2 1 1\n1 2 1\n```\n\nExpected output:\n\n```\n2\n```\n\nActual output:\n\n```\n-1\n```",
+        "input": [
+            "3 3",
+            "0 0 1",
+            "0 1 0",
+            "1 0 0",
+            "1 2 1",
+            "2 1 1",
+            "1 2 1"
+        ],
+        "expectedOutput": [
+            "2"
+        ],
+        "testcaseType": "IT",
+        "buggy_output": [],
+        "correct_output": []
+    },
+    {
+        "filename": "Matrix_Problem.py",
+        "iteration": 8,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n2 2\n0 1\n1 0\n1 1\n1 1\n1 1\n```\n\nExpected output:\n\n```\n-1\n```\n\nExplanation:\n\nThe bug in the program is that it doesn't correctly handle the case where there are multiple edges between two nodes with different capacities. In the provided test case, there are two edges between node 0 and node 1, one with capacity 1 and cost 0, and the other with capacity 1 and cost 1. The program incorrectly merges these two edges into a single edge with capacity 2 and cost 1, which leads to an incorrect result.\n\nTo fix the bug, the program should keep track of multiple edges between two nodes separately and update their capacities and costs correctly during the minimum cost flow algorithm.",
+        "input": [
+            "2 2",
+            "0 1",
+            "1 0",
+            "1 1",
+            "1 1",
+            "1 1"
+        ],
+        "expectedOutput": [
+            "-1"
+        ],
+        "testcaseType": "IT",
+        "buggy_output": [],
+        "correct_output": []
+    },
+    {
+        "filename": "Matrix_Problem.py",
+        "iteration": 9,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n3 3\n0 1 0\n1 0 1\n0 1 0\n1 2 3\n4 5 6\n7 8 9\n```\n\nExpected output:\n\n```\n3\n```\n\nActual output:\n\n```\n-1\n```",
+        "input": [
+            "3 3",
+            "0 1 0",
+            "1 0 1",
+            "0 1 0",
+            "1 2 3",
+            "4 5 6",
+            "7 8 9"
+        ],
+        "expectedOutput": [
+            "3"
+        ],
+        "testcaseType": "IT",
+        "buggy_output": [],
+        "correct_output": []
+    },
+    {
+        "filename": "Matrix_Problem.py",
+        "iteration": 10,
+        "replyStage1": "yes",
+        "replyStage2": "Input:\n\n```\n3 3\n0 1 0\n1 0 1\n0 1 0\n1 1 1\n1 1 1\n1 1 1\n```\n\nExpected output:\n\n```\n-1\n```\n\nExplanation:\n\nThe bug in the program is that it doesn't correctly handle the case where the maximum flow is not equal to the sum of the demands. In this test case, the maximum flow is 4, but the sum of the demands is 5. As a result, the program incorrectly prints -1 instead of the correct answer, which is 1.",
+        "input": [
+            "3 3",
+            "0 1 0",
+            "1 0 1",
+            "0 1 0",
+            "1 1 1",
+            "1 1 1",
+            "1 1 1"
+        ],
+        "expectedOutput": [
+            "-1"
+        ],
+        "testcaseType": "IT",
+        "buggy_output": [],
+        "correct_output": []
+    }
+]

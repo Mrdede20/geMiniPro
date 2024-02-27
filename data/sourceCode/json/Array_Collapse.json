@@ -1,0 +1,6 @@
+[
+    {
+        "filename": "Array_Collapse.py",
+        "program": "t = int(input())\\nwhile t > 0:\\n    t -= 1\\n    n = int(input())\\n    a = list(map(int, input().split(\" \")))\\n    dp = [0 for _ in range(n+10)]\\n    pre = [0 for _ in range(n+10)]\\n    dp[0] = pre[0] = 1\\n    sta = [0]\\n    sta_sum = 1\\n    for i in range(1, n):\\n        while len(sta) > 0 and a[sta[-1]] > a[i]:\\n            sta_sum -= dp[sta.pop()]\\n        if len(sta) == 0:\\n            dp[i] = pre[i-1] + 1\\n        else:\\n            dp[i] = pre[i-1] - pre[sta[-1]] + sta_sum\\n        pre[i] = pre[i-1] + dp[i]\\n        sta.append(i)\\n        sta_sum += dp[i]\\n\\n    ans = 0\\n    for i in sta:\\n        ans += dp[i]\\n    print(ans)\\n\\n"
+    }
+]
